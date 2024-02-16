@@ -6,6 +6,7 @@ import Button from "./Component/ui/Button";
 import Input from "./Component/ui/Input";
 import { IProduct } from "./interface";
 import { productValidation } from "./validation";
+import ErrorMassage from "./Component/ui/ErrorMassage";
 const App = () => {
   const defaultProductObj = {
     title: "",
@@ -23,18 +24,26 @@ const App = () => {
 
   const [isOpen, setIsOpen] = useState(false);
   const [product, setProduct] = useState<IProduct>(defaultProductObj);
+  const [errors, setErrors] = useState({
+    title: "",
+    description: "",
+    imageURL: "",
+    price: "",
+  });
 
   /** Handler */
 
   const closeModal = () => setIsOpen(false);
 
   const openModal = () => setIsOpen(true);
+
   const onChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
     const { value, name } = event.target;
     setProduct({
       ...product,
       [name]: value,
     });
+    setErrors({ ...errors, [name]: "" });
   };
 
   const onCancel = () => {
@@ -43,13 +52,24 @@ const App = () => {
   };
   const submitHandler = (event: FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
+    const { title, description, price, imageURL } = product;
+
     const errors = productValidation({
-      title: product.title,
-      description: product.description,
-      price: product.price,
-      imageURL: product.imageURL,
+      title,
+      description,
+      price,
+      imageURL,
     });
-    console.log(errors);
+
+    const hasErrorMsg =
+      Object.values(errors).some((value) => value === "") &&
+      Object.values(errors).every((value) => value === "");
+    console.log(hasErrorMsg);
+    if (!hasErrorMsg) {
+      setErrors(errors);
+      return;
+    }
+    console.log("send this product to our server");
   };
 
   //** Renders
@@ -71,6 +91,7 @@ const App = () => {
         value={product[input.name]}
         onChange={onChangeHandler}
       />
+      <ErrorMassage msg={errors[input.name]} />
     </div>
   ));
 
