@@ -1,6 +1,11 @@
 import { ChangeEvent, FormEvent, useState } from "react";
 import ProductCard from "./Component/ProductCard";
-import { colors, formInputsList, productList } from "./Component/data";
+import {
+  categories,
+  colors,
+  formInputsList,
+  productList,
+} from "./Component/data";
 import Modal from "./Component/ui/Modal";
 import Button from "./Component/ui/Button";
 import Input from "./Component/ui/Input";
@@ -9,6 +14,8 @@ import { productValidation } from "./validation";
 import ErrorMassage from "./Component/ui/ErrorMassage";
 import CircelColor from "./Component/ui/CircelColor";
 import { v4 as uuid } from "uuid";
+import Select from "./Component/ui/Select";
+
 const App = () => {
   const defaultProductObj = {
     title: "",
@@ -28,6 +35,7 @@ const App = () => {
   const [products, setProducts] = useState<IProduct[]>(productList);
   const [product, setProduct] = useState<IProduct>(defaultProductObj);
   const [tempColors, setTempColor] = useState<string[]>([]);
+  const [selectedCategory, setSelectedCategory] = useState(categories[0]);
   const [errors, setErrors] = useState({
     title: "",
     description: "",
@@ -75,7 +83,12 @@ const App = () => {
       return;
     }
     setProducts((prev) => [
-      { ...product, id: uuid(), colors: tempColors },
+      {
+        ...product,
+        id: uuid(),
+        colors: tempColors,
+        category: selectedCategory,
+      },
       ...prev,
     ]);
     setProduct(defaultProductObj);
@@ -136,6 +149,10 @@ const App = () => {
       <Modal isOpen={isOpen} closeModal={closeModal} title="ADD A NEW PRODUT">
         <form className="space-y-3" onSubmit={submitHandler}>
           {rendrFormInputList}
+          <Select
+            selected={selectedCategory}
+            setSelected={setSelectedCategory}
+          />
           <div className="flex items-center flex-wrap space-x-1">
             {renderProductColors}
           </div>
@@ -149,10 +166,6 @@ const App = () => {
                 {color}
               </span>
             ))}
-          </div>
-
-          <div className="flex items-center space-x-1">
-            {renderProductColors}
           </div>
 
           <div className="flex items-center space-x-3">
