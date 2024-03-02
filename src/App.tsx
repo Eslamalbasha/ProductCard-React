@@ -1,12 +1,14 @@
 import { ChangeEvent, FormEvent, useState } from "react";
 import ProductCard from "./Component/ProductCard";
-import { formInputsList, productList } from "./Component/data";
+import { colors, formInputsList, productList } from "./Component/data";
 import Modal from "./Component/ui/Modal";
 import Button from "./Component/ui/Button";
 import Input from "./Component/ui/Input";
 import { IProduct } from "./interface";
 import { productValidation } from "./validation";
 import ErrorMassage from "./Component/ui/ErrorMassage";
+import CircelColor from "./Component/ui/CircelColor";
+import { v4 as uuid } from "uuid";
 const App = () => {
   const defaultProductObj = {
     title: "",
@@ -23,13 +25,16 @@ const App = () => {
   /** State */
 
   const [isOpen, setIsOpen] = useState(false);
+  const [products, setProducts] = useState<IProduct[]>(productList);
   const [product, setProduct] = useState<IProduct>(defaultProductObj);
+  const [tempColors, setTempColor] = useState<string[]>([]);
   const [errors, setErrors] = useState({
     title: "",
     description: "",
     imageURL: "",
     price: "",
   });
+  console.log(tempColors);
 
   /** Handler */
 
@@ -69,11 +74,17 @@ const App = () => {
       setErrors(errors);
       return;
     }
-    console.log("send this product to our server");
+    setProducts((prev) => [
+      { ...product, id: uuid(), colors: tempColors },
+      ...prev,
+    ]);
+    setProduct(defaultProductObj);
+    setTempColor([]);
+    closeModal();
   };
 
   //** Renders
-  const renderproductList = productList.map((product) => (
+  const renderproductList = products.map((product) => (
     <ProductCard key={product.id} product={product} />
   ));
   const rendrFormInputList = formInputsList.map((input) => (
@@ -94,12 +105,30 @@ const App = () => {
       <ErrorMassage msg={errors[input.name]} />
     </div>
   ));
+  const renderProductColors = colors.map((color) => (
+    <CircelColor
+      key={color}
+      color={color}
+      onClick={() => {
+        if (tempColors.includes(color)) {
+          setTempColor((prev) => prev.filter((item) => item !== color));
+          return;
+        }
+
+        setTempColor((prev) => [...prev, color]);
+      }}
+    />
+  ));
 
   return (
     <main className="container ">
-      <Button className="bg-indigo-700 hover:bg-indigo-800" onClick={openModal}>
+      <Button
+        className="block bg-indigo-700 hover:bg-indigo-800 mx-auto my-10 px-10 font-medium"
+        onClick={openModal}
+        width="w-fit"
+      >
         {" "}
-        Add
+        Build Product
       </Button>
       <div className=" m-5 grid grid-cols-1 gap-2 md:gap-4 lg:gap-5 xl:gap-6 p-2 rounded-md md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4">
         {renderproductList}
@@ -107,6 +136,25 @@ const App = () => {
       <Modal isOpen={isOpen} closeModal={closeModal} title="ADD A NEW PRODUT">
         <form className="space-y-3" onSubmit={submitHandler}>
           {rendrFormInputList}
+          <div className="flex items-center flex-wrap space-x-1">
+            {renderProductColors}
+          </div>
+          <div className="felx items-center flex-wrap space-x-1">
+            {tempColors.map((color) => (
+              <span
+                key={color}
+                className="p-1 mr-1 mb-1 text-xs rounded-md text-white"
+                style={{ backgroundColor: color }}
+              >
+                {color}
+              </span>
+            ))}
+          </div>
+
+          <div className="flex items-center space-x-1">
+            {renderProductColors}
+          </div>
+
           <div className="flex items-center space-x-3">
             <Button className="bg-indigo-700 hover:bg-indigo-800">
               {" "}
