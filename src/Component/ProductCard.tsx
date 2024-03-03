@@ -8,9 +8,17 @@ interface IProps {
   product: IProduct;
   setProductToEdit: (product: IProps) => void;
   openEditModal: () => void;
+  setProductToEditIdx: (value: number) => void;
+  idx: number;
 }
 
-const ProductCard = ({ product, setProductToEdit, openEditModal }: IProps) => {
+const ProductCard = ({
+  product,
+  setProductToEdit,
+  openEditModal,
+  setProductToEditIdx,
+  idx,
+}: IProps) => {
   const { title, imageURL, description, price, colors, category } = product;
   const renderProductColors = colors.map((color) => (
     <CircelColor key={color} color={color} />
@@ -19,6 +27,7 @@ const ProductCard = ({ product, setProductToEdit, openEditModal }: IProps) => {
   const onEdit = () => {
     setProductToEdit(product);
     openEditModal();
+    setProductToEditIdx(idx);
   };
   return (
     <div className=" border border-gray-300 rounded-md p-2 flex-col max-w-sm md:max-w-lg mx-auto md:mx-0 ">

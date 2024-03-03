@@ -40,6 +40,7 @@ const App = () => {
   const [selectedCategory, setSelectedCategory] = useState(categories[0]);
   const [productToEdit, setProductToEdit] =
     useState<IProduct>(defaultProductObj);
+  const [productToEditIdx, setProductToEditIdx] = useState<number>(0);
   console.log(productToEdit);
   const [errors, setErrors] = useState({
     title: "",
@@ -48,6 +49,7 @@ const App = () => {
     price: "",
   });
   console.log(tempColors);
+  console.log(productToEditIdx);
 
   /** Handler */
 
@@ -129,19 +131,24 @@ const App = () => {
       setErrors(errors);
       return;
     }
+    const updatedProducts = [...products];
+    updatedProducts[productToEditIdx] = productToEdit;
+    setProducts(updatedProducts);
 
     setProductToEdit(defaultProductObj);
     setTempColor([]);
-    closeModal();
+    closeEditModal();
   };
 
   //** Renders
-  const renderproductList = products.map((product) => (
+  const renderproductList = products.map((product, idx) => (
     <ProductCard
       key={product.id}
       product={product}
       setProductToEdit={setProductToEdit}
       openEditModal={openEditModal}
+      idx={idx}
+      setProductToEditIdx={setProductToEditIdx}
     />
   ));
   const rendrFormInputList = formInputsList.map((input) => (
