@@ -6,13 +6,20 @@ import { hSlicer, txtSlicer } from "./utils/function";
 
 interface IProps {
   product: IProduct;
+  setProductToEdit: (product: IProps) => void;
+  openEditModal: () => void;
 }
 
-const ProductCard = ({ product }: IProps) => {
+const ProductCard = ({ product, setProductToEdit, openEditModal }: IProps) => {
   const { title, imageURL, description, price, colors, category } = product;
   const renderProductColors = colors.map((color) => (
     <CircelColor key={color} color={color} />
   ));
+  /** handler */
+  const onEdit = () => {
+    setProductToEdit(product);
+    openEditModal();
+  };
   return (
     <div className=" border border-gray-300 rounded-md p-2 flex-col max-w-sm md:max-w-lg mx-auto md:mx-0 ">
       <Image
@@ -37,7 +44,11 @@ const ProductCard = ({ product }: IProps) => {
         />
       </div>
       <div className="flex justify-between items-center  space-x-2 mt-5">
-        <Button className="bg-indigo-700 hover:bg-indigo-800" width="w-full">
+        <Button
+          className="bg-indigo-700 hover:bg-indigo-800"
+          width="w-full"
+          onClick={onEdit}
+        >
           EDIT
         </Button>
 
