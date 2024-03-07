@@ -229,7 +229,7 @@ const App = () => {
       <div className=" m-5 grid grid-cols-1 gap-2 md:gap-4 lg:gap-5 xl:gap-6 p-2 rounded-md md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4">
         {renderproductList}
       </div>
-      /** add Product modal*/
+      {/* add Product modal */}
       <Modal
         isOpen={isOpen}
         closeModal={closeEditModal}
@@ -271,7 +271,7 @@ const App = () => {
           </div>
         </form>
       </Modal>
-      /** Edit product modal*/
+      {/* Edit product modal */}
       <Modal
         isOpen={isOpenEditModal}
         closeModal={closeModal}

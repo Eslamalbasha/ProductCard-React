@@ -19,9 +19,6 @@ export const productList: IProduct[] = [
       "#645CBB",
       "#FF0032",
       "#820000",
-      "#13005A",
-      "#1F8A70",
-      "#84D2C5",
     ],
     category: {
       name: "Nike",
@@ -65,7 +62,7 @@ export const productList: IProduct[] = [
     description:
       "As luxury T-Shirt is just as distinctive and can be trimmed with premium materials like Nappa leather and carbon fiber.",
     imageURL:
-      "https://images.unsplash.com/photo-1552831388-6a0b3575b32a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1632&q=80",
+      "https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
     price: "1500",
     colors: ["#A31ACB", "#3C2A21", "#1F8A70", "#820000", "#FF0032"],
 
@@ -83,18 +80,7 @@ export const productList: IProduct[] = [
     imageURL:
       "https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
     price: "350",
-    colors: [
-      "#A31ACB",
-      "#FF6E31",
-      "#3C2A21",
-      "#CB1C8D",
-      "#645CBB",
-      "#FF0032",
-      "#820000",
-      "#13005A",
-      "#1F8A70",
-      "#84D2C5",
-    ],
+    colors: ["#A31ACB", "#FF6E31", "#3C2A21"],
     category: {
       name: "Nike",
       imageURL:
@@ -137,7 +123,7 @@ export const productList: IProduct[] = [
     description:
       "As luxury T-Shirt is just as distinctive and can be trimmed with premium materials like Nappa leather and carbon fiber.",
     imageURL:
-      "https://images.unsplash.com/photo-1552831388-6a0b3575b32a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1632&q=80",
+      "https://images.unsplash.com/photo-1583121274602-3e2820c69888?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
     price: "150,00",
     colors: ["#1F8A70", "#820000", "#FF0032"],
 
